@@ -1,0 +1,112 @@
+<div class="pt-4 pb-4 d-flex justify-content-between">
+  <p>Welcome, {{ getUser() }}</p>
+  <p class="btn btn-danger" (click)="logout()">Logout</p>
+</div>
+<section class="pr-4 pl-4">
+  <div class="mb-4">
+    <a class="action-cell" [routerLink]="['/recipes/']">
+      <fui-icon shape="fui-caret" dir="left"></fui-icon>
+      <span class="ml-2">Back to recipes</span>
+    </a>
+  </div>
+  <div>
+    <button *ngIf="mode === modeType.VIEW" (click)="mode = modeType.EDIT" class="action-cell btn btn-secondary">Edit Recipe</button>
+  </div>
+</section>
+
+<form fuiForm *ngIf="recipe" class="m-4">
+  <section class="d-flex justify-content-between">
+    <img *ngIf="recipe?.image" class="recipe-image" [src]="getRecipeImageUrl()"/>
+    <div class="w-50" [ngClass]="{'pr-4': recipe?.image, 'pl-4': recipe?.image }">
+      <fui-file-upload-container *ngIf="mode != modeType.VIEW"
+                  [uploadFunction]="uploadFile"
+                  [pauseable]="false"
+                  [immediateUpload]="false"
+                  (fileCancel)="cancelFile($event)">
+        <input fuiFileUpload type="file" name="users" accept=".jpg,.png,.jpeg" [(ngModel)]="file" />
+      </fui-file-upload-container>
+    </div>
+  </section>
+  <section class="d-flex">
+    <div class="w-100 pr-4">
+      <fui-input-container class="mt-4">
+        <label fuiLabel>Name</label>
+        <input fuiInput name="name" [(ngModel)]="recipe.name" required [disabled]="mode === modeType.VIEW" />
+      </fui-input-container>
+      <fui-textarea-container>
+        <label fuiLabel>Description</label>
+        <textarea fuiTextarea name="description" [(ngModel)]="recipe.description" required [disabled]="mode === modeType.VIEW"></textarea>
+      </fui-textarea-container>
+    </div>
+    <div class="w-100 pl-4">
+      <fui-number-container class="mt-4">
+        <label fuiLabel>Price</label>
+        <input fuiNumber type="number" name="price" [min]="0" [(ngModel)]="recipe.price" required [disabled]="mode === modeType.VIEW" />
+      </fui-number-container>
+      <fui-input-container class="mt-4">
+        <label fuiLabel>Yields</label>
+        <input fuiInput name="yields" [(ngModel)]="recipe.yield" required [disabled]="mode === modeType.VIEW" />
+      </fui-input-container>
+    </div>
+  </section>
+  
+  <section class="mt-4">
+    <div>Instructions:</div>
+    <button *ngIf="mode != modeType.VIEW" (click)="addInstructionToRecipe()" class="btn btn-secondary">Add Instruction</button>
+    <div *ngFor="let instruction of recipe.instructions; let i = index; trackBy: trackByFunc">
+      <fui-input-container class="mt-4">
+        <label fuiLabel>Instruction</label>
+        <input fuiInput [ngModelOptions]="{standalone: true}" [(ngModel)]="recipe.instructions[i]" name="{{i}}" [disabled]="mode === modeType.VIEW"/>
+      </fui-input-container>
+      <fui-icon *ngIf="mode != modeType.VIEW"
+                shape="fui-trash" class="text-danger"
+                (click)="deleteInstructionFromRecipe(i)"
+                [fuiTooltip]="'Delete instruction'"
+                [fuiTooltipConfig]="{ placement: 'right' }"></fui-icon>
+    </div>
+  </section>
+  <section class="mt-4">
+    <div>Ingredients:</div>
+    <button *ngIf="mode != modeType.VIEW" (click)="addIngredientToRecipe()" class="btn btn-secondary">Add Ingredient</button>
+    <div *ngFor="let ingredient of recipe.ingredients; let i = index; trackBy: trackByFunc">
+      <div class="d-flex">
+        <div class="w-50 pr-4">
+          <fui-input-container class="mt-4">
+            <label fuiLabel>Ingredient</label>
+            <input fuiInput name="ingredient-name-{{i}}" [(ngModel)]="ingredient.name" required [disabled]="mode === modeType.VIEW"/>
+          </fui-input-container>
+          <fui-input-container class="mt-4" >
+            <label fuiLabel>Preparation</label>
+            <input fuiInput name="ingredient-preparation-{{i}}" [(ngModel)]="ingredient.preparation" required [disabled]="mode === modeType.VIEW"/>
+          </fui-input-container>
+        </div>
+        <div class="w-50 pl-4">
+          <fui-input-container class="mt-4" >
+            <label fuiLabel>Cost</label>
+            <input fuiInput name="ingredient-cost-{{i}}" [(ngModel)]="ingredient.cost" required [disabled]="mode === modeType.VIEW"/>
+          </fui-input-container>
+          <fui-input-container class="mt-4" >
+            <label fuiLabel>Amount</label>
+            <input fuiInput name="ingredient-amount-{{i}}" [(ngModel)]="ingredient.amount" required [disabled]="mode === modeType.VIEW"/>
+          </fui-input-container>
+        </div>
+      </div>
+      <div class="mt-2">
+        <fui-icon *ngIf="mode != modeType.VIEW"
+        shape="fui-trash" class="text-danger"
+        (click)="deleteIngredientFromRecipe(i)"
+        [fuiTooltip]="'Delete ingredient'"
+        [fuiTooltipConfig]="{ placement: 'right' }"></fui-icon>
+      </div>
+    </div>
+  </section>
+</form>
+<hr>
+<section class="pr-4 pl-4">
+  <div>
+    <button *ngIf="mode != modeType.VIEW" (click)="create()" class="btn btn-success">{{ mode === modeType.EDIT ? 'Update' : 'Create'}} Recipe</button>
+  </div>
+  <div class="mt-4">
+    <button *ngIf="mode === modeType.EDIT" (click)="delete()" class="btn btn-danger">Delete Recipe</button>
+  </div>
+</section>

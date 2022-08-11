@@ -1,0 +1,48 @@
+<div id="login-component" class="col-lg-5 col-md-6 col-xs-10">
+  <div [ngClass]="{'mb-2': error }">
+    <div class="title">
+      Welcome back!
+    </div>
+    <div class="sub-title">
+      Log in to your account using your email & password.
+    </div>
+  </div>
+  <div *ngIf="error" class="alert alert-danger">
+    Sorry, something went wrong with your login attempt, please check your email and password are correct and try again.
+  </div>
+  <form id="login-form" (ngSubmit)="login()" *ngIf="loginForm" [formGroup]="loginForm" autocomplete="off">
+      <div class="form-section">
+          <label class="input-container">
+            <input type="text"
+                   id="email"
+                   name="email"
+                   formControlName="Email"
+                   placeholder="Enter Email"/>
+                   <i class="glyphicon glyphicon-envelope form-control-feedback"></i>
+          </label>
+        </div>
+        <div class="form-section">
+            <label class="input-container">
+              <input type="password"
+                     id="password"
+                     name="password"
+                     formControlName="Password"
+                     placeholder="Enter Password"/>
+                     <i class="glyphicon glyphicon-lock form-control-feedback"></i>
+            </label>
+          </div>
+          <button
+              class="login-btn"
+              [ngClass]="{'disabled': !loginForm.valid }"
+              type="submit"
+              [disabled]="!loginForm.valid">
+              LOGIN
+        </button>
+  </form>
+  <p class="sign-up-link">
+    Don't have an account yet?
+    <a routerLink="/signup">
+      Sign Up Here!
+    </a>
+  </p>
+</div>

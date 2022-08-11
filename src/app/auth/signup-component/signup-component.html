@@ -1,0 +1,48 @@
+<div id="signup-component" class="col-lg-5 col-md-6 col-xs-10">
+  <div [ngClass]="{'mb-2': error}">
+    <div class="title">
+      Create your free account!
+    </div>
+    <div class="sub-title">
+      Sign up using an email & password.
+    </div>
+  </div>
+  <div *ngIf="error" class="alert alert-danger">
+    Sorry, something went wrong with your signup attempt, please check your email and password are valid and try again.
+  </div>
+  <form id="signup-form" (ngSubmit)="signup()" *ngIf="signupForm" [formGroup]="signupForm" autocomplete="off">
+      <div class="form-section">
+          <label class="input-container">
+            <input type="text"
+                    id="email"
+                    name="email"
+                    formControlName="Email"
+                    placeholder="Enter Email"/>
+                    <i class="glyphicon glyphicon-envelope form-control-feedback"></i>
+          </label>
+      </div>
+      <div class="form-section">
+            <label class="input-container">
+              <input type="password"
+                      id="password"
+                      name="password"
+                      formControlName="Password"
+                      placeholder="Enter Password"/>
+                      <i class="glyphicon glyphicon-lock form-control-feedback"></i>
+            </label>
+      </div>
+          <button
+              class="signup-btn"
+              [ngClass]="{'disabled': !signupForm.valid }"
+              type="submit"
+              [disabled]="!signupForm.valid">
+              SIGN UP
+        </button>
+  </form>
+  <p class="sign-up-link">
+      Already have an account?
+      <a routerLink="/login">
+        Login here!
+      </a>
+    </p>
+</div>

@@ -1,0 +1,77 @@
+@import '../../styles.scss';
+
+#login-component, #signup-component {
+  position: fixed;
+  transform: translateY(-50%) translateX(-50%);
+  top: 50%;
+  left: 50%;
+  background: $white;
+  padding: 50px 25px;
+  border-radius: 5px;
+  .title {
+    color: #ADB5CC;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .sub-title {
+    color: #ADB5CC;
+    font-size: 14px;
+    font-weight: normal;
+  }
+  #login-form, #signup-form {
+    margin: 15px auto;
+    .form-section {
+      margin: 10px 0;
+    }
+    .input-container {
+      position: relative;
+      width: 100%;
+      margin-bottom: 15px;
+      input[type="text"], input[type="password"] {
+        width: 100%;
+        padding-left: 30px;
+        height: 33px;
+        border: 1px solid rgba(0,44,62,.5);
+        border-radius: 5px;
+        color: rgba(0,44,62,1);
+        &:focus {
+          border: 1px solid rgba(0,44,62,1);
+        }
+      }
+      ::-webkit-input-placeholder { color:rgba(0,44,62,.5); }
+      ::-moz-placeholder { color:rgba(0,44,62,.5); } /* firefox 19+ */
+      :-ms-input-placeholder { color:rgba(0,44,62,.5); } /* ie */
+      input:-moz-placeholder { color:rgba(0,44,62,.5); }
+      .glyphicon {
+        left: 0 !important;
+       // color: #78BCC4;
+       color: #ADB5CC;
+      }
+    }
+    .login-btn, .signup-btn {
+      border: 1px solid rgba(120,188,196);
+      border-radius: 5px;
+      background-color:rgba(120,188,196);
+      color: $white;
+      text-align: center;
+      width: 100%;
+      padding: 10px;
+      &:not([disabled]):hover {
+        background-color: rgba(120,188,196,1);
+      }
+      &.disabled {
+        background-color:rgba(120,188,196,.7);
+        border:rgba(120,188,196,.7);
+      }
+    }
+    .sign-up-link {
+      color: rgba(0,44,62,1);
+      a {
+        color: rgba(120,188,196,.8);
+        &:hover {
+          color: rgba(120,188,196,1);
+        }
+      }
+    }
+  }
+}

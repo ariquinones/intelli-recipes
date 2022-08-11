@@ -1,0 +1,35 @@
+<div class="pt-4 pb-4 d-flex justify-content-between">
+  <p>Welcome, {{ getUser() }}</p>
+  <p class="btn btn-danger" (click)="logout()">Logout</p>
+</div>
+<fui-widget class="widget-with-datagrid">
+  <fui-widget-header>
+    <fui-widget-title>Recipes</fui-widget-title>
+    <fui-widget-action>
+      <fui-dropdown>
+        <button fuiDropdownTrigger class="actions-dropdown-button text-secondary">
+          Actions
+          <fui-icon shape="fui-caret" dir="down"></fui-icon>
+        </button>
+        <fui-dropdown-menu *fuiIfOpen fuiPosition="bottom-right">
+          <button (click)="newRecipe()" fuiDropdownItem>Create New Recipe</button>
+          <button (click)="datagrid.exportGrid()" fuiDropdownItem>Export Recipes to CSV</button>
+        </fui-dropdown-menu>
+      </fui-dropdown>
+    </fui-widget-action>
+  </fui-widget-header>
+  <fui-widget-body>
+    <fui-datagrid #datagrid
+    [defaultColDefs]="defaultColumnDefs"
+    [columnDefs]="columnDefs"
+    [rowData]="recipes"
+    [withHeader]="recipes?.length > itemPerPage"
+    [withNavigator]="recipes?.length > itemPerPage"
+    [maxDisplayedRows]="itemPerPage"
+    [exportParams]="exportParams"></fui-datagrid>
+  </fui-widget-body>
+</fui-widget>
+
+<ng-template #idRenderer let-row="row.data">
+  <a class="action-cell" [routerLink]="['/recipes/' + row.id]">{{ row.name }}</a>
+</ng-template>

@@ -19,6 +19,12 @@
     "@angular/platform-browser": "~10.0.4",
     "@angular/platform-browser-dynamic": "~10.0.4",
     "@angular/router": "~10.0.4",
+    "@ferui/components": "^2.0.0-alpha.10",
+    "@ferui/design": "^2.0.0-alpha.10",
+    "@ferui/icons": "^2.0.0-alpha.10",
+    "@webcomponents/custom-elements": "^1.4.3",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "intersection-observer": "^0.7.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
