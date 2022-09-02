@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class AuthService {
 
-  private AUTH_PATH: string = `http://3.133.94.195`;
+  private AUTH_PATH: string = `http://localhost:8080`;
 
   constructor(private http: HttpClient) {}
 

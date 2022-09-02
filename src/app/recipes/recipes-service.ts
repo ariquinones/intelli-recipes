@@ -5,7 +5,7 @@ import { Recipe } from './models';
 @Injectable()
 export class RecipesService {
 
-  private AUTH_PATH: string = `http://3.133.94.195`;
+  private AUTH_PATH: string = `http://localhost:8080`;
   private USER_ID: string = localStorage.getItem('intelli-user');
 
   constructor(private http: HttpClient) {}
